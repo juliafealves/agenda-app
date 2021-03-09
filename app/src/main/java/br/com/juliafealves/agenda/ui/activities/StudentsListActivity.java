@@ -2,6 +2,9 @@ package br.com.juliafealves.agenda.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -39,6 +42,7 @@ public class StudentsListActivity extends AppCompatActivity {
     private void configureStudentsList() {
         ListView ltvStudents = findViewById(R.id.ltv_students);
         ltvStudents.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, dao.findAll()));
+        ltvStudents.setOnItemClickListener((parent, view, position, id) -> Log.i("POSITION", position + ""));
     }
 
     private void openStudentsForm() {
