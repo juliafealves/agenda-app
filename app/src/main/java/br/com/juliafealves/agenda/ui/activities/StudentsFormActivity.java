@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import br.com.juliafealves.agenda.R;
@@ -12,8 +11,11 @@ import br.com.juliafealves.agenda.daos.StudentDAO;
 import br.com.juliafealves.agenda.models.Student;
 
 public class StudentsFormActivity extends AppCompatActivity {
-    private static final String TITLE = "New Student";
+    private static final String TITLE_NEW = "New Student";
+    private static final String TITLE_EDIT = "Edit Student";
+
     private final StudentDAO studentDAO = new StudentDAO();
+    private Student student;
     private EditText edtName;
     private EditText edtPhone;
     private EditText edtEmail;
@@ -22,9 +24,9 @@ public class StudentsFormActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_students_form);
-        setTitle(TITLE);
         initializeFields();
         configureButtonSave();
+        loadStudent();
     }
 
     private void initializeFields() {
@@ -35,20 +37,41 @@ public class StudentsFormActivity extends AppCompatActivity {
 
     private void configureButtonSave() {
         final Button btnSave = findViewById(R.id.btn_save);
-        btnSave.setOnClickListener(view -> save(createStudent()));
+        btnSave.setOnClickListener(view -> finishForm());
     }
 
-    private void save(Student student) {
-        studentDAO.save(student);
+    private void loadStudent() {
+        if (getIntent().hasExtra(ConstantsActivities.KEY_STUDENT)) {
+            setTitle(TITLE_EDIT);
+            student = (Student) getIntent().getSerializableExtra(ConstantsActivities.KEY_STUDENT);
+            fillForm();
+        } else {
+            setTitle(TITLE_NEW);
+            student = new Student();
+        }
+    }
+
+    private void fillStudent() {
+        student.setName(edtName.getText().toString());
+        student.setPhone(edtPhone.getText().toString());
+        student.setEmail(edtEmail.getText().toString());
+    }
+
+    private void fillForm() {
+        edtName.setText(student.getName());
+        edtEmail.setText(student.getEmail());
+        edtPhone.setText(student.getPhone());
+    }
+
+    private void finishForm() {
+        fillStudent();
+
+        if(student.isValidId()) {
+            studentDAO.edit(student);
+        } else {
+            studentDAO.save(student);
+        }
+
         finish();
-    }
-
-    @NonNull
-    private Student createStudent() {
-        String name = edtName.getText().toString();
-        String phone = edtPhone.getText().toString();
-        String email = edtEmail.getText().toString();
-
-        return new Student(name, phone, email);
     }
 }
