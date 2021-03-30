@@ -59,7 +59,22 @@ public class StudentDAO {
         return null;
     }
 
+    /**
+     * Increment plus 1 in id.
+     */
     private void incrementId() {
         countId++;
+    }
+
+    /**
+     * Remove a student by id.
+     * @param id
+     */
+    public void removeById(int id) {
+        Student student = findById(id);
+
+        if(student != null) {
+            students.remove(student);
+        }
     }
 }
