@@ -2,17 +2,18 @@ package br.com.juliafealves.agenda.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.List;
 
 import br.com.juliafealves.agenda.R;
 import br.com.juliafealves.agenda.daos.StudentDAO;
@@ -31,6 +32,23 @@ public class StudentsListActivity extends AppCompatActivity {
         configureButtonAdd();
         configureStudentsList();
         studentDAO.save(new Student("Júlia", "998021522", "juliafealves@gmail.com"));
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        getMenuInflater().inflate(R.menu.activity_students_list_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.mi_remove) {
+            AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+            Student student = adapter.getItem(menuInfo.position);
+            removeStudent(student);
+        }
+
+        return super.onContextItemSelected(item);
     }
 
     @Override
@@ -53,7 +71,7 @@ public class StudentsListActivity extends AppCompatActivity {
         ListView ltvStudents = findViewById(R.id.ltv_students);
         configureStudentListAdapter(ltvStudents);
         configureStudentListItemClickListener(ltvStudents);
-        configureStudentListItemLongClickListener(ltvStudents);
+        registerForContextMenu(ltvStudents);
     }
 
     private void configureStudentListAdapter(ListView listView) {
@@ -64,18 +82,6 @@ public class StudentsListActivity extends AppCompatActivity {
     private void configureStudentListItemClickListener(ListView listView) {
         listView.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id) ->
                 openEditForm((Student) parent.getItemAtPosition(position)));
-    }
-
-    private void configureStudentListItemLongClickListener(ListView listView) {
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Student student = (Student) parent.getItemAtPosition(position);
-                StudentsListActivity.this.removeStudent(student);
-
-                return true;
-            }
-        });
     }
 
     private void openAddForm() {
