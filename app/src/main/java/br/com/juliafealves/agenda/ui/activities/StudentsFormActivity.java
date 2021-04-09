@@ -1,9 +1,14 @@
 package br.com.juliafealves.agenda.ui.activities;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import br.com.juliafealves.agenda.R;
@@ -25,19 +30,28 @@ public class StudentsFormActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_students_form);
         initializeFields();
-        configureButtonSave();
         loadStudent();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_students_form_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.mi_save) {
+            finishForm();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void initializeFields() {
         edtName = findViewById(R.id.edt_name);
         edtPhone = findViewById(R.id.edt_phone);
         edtEmail = findViewById(R.id.edt_email);
-    }
-
-    private void configureButtonSave() {
-        final Button btnSave = findViewById(R.id.btn_save);
-        btnSave.setOnClickListener(view -> finishForm());
     }
 
     private void loadStudent() {
