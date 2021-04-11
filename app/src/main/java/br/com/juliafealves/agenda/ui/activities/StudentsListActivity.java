@@ -43,7 +43,8 @@ public class StudentsListActivity extends AppCompatActivity {
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.mi_remove) {
-            AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+            AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo)
+                    item.getMenuInfo();
             Student student = adapter.getItem(menuInfo.position);
             removeStudent(student);
         }
