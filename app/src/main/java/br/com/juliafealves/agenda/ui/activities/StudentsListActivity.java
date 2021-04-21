@@ -6,7 +6,6 @@ import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -18,11 +17,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import br.com.juliafealves.agenda.R;
 import br.com.juliafealves.agenda.daos.StudentDAO;
 import br.com.juliafealves.agenda.models.Student;
+import br.com.juliafealves.agenda.ui.adapters.StudentsListAdapter;
 
 public class StudentsListActivity extends AppCompatActivity {
     private static final String TITLE = "Students List";
     private final StudentDAO studentDAO = new StudentDAO();
-    private ArrayAdapter<Student> adapter;
+    private StudentsListAdapter adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,8 +59,7 @@ public class StudentsListActivity extends AppCompatActivity {
     }
 
     private void updateList() {
-        adapter.clear();
-        adapter.addAll(studentDAO.findAll());
+        adapter.refresh(studentDAO.findAll());
     }
 
     private void configureButtonAdd() {
@@ -76,7 +75,7 @@ public class StudentsListActivity extends AppCompatActivity {
     }
 
     private void configureStudentListAdapter(ListView listView) {
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
+        adapter = new StudentsListAdapter(this);
         listView.setAdapter(adapter);
     }
 
