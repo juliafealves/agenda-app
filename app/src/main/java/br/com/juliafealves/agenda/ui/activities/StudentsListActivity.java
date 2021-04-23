@@ -31,7 +31,6 @@ public class StudentsListActivity extends AppCompatActivity {
         setTitle(TITLE);
         configureButtonAdd();
         configureStudentsList();
-        studentDAO.save(new Student("Júlia", "998021522", "juliafealves@gmail.com"));
     }
 
     @Override
