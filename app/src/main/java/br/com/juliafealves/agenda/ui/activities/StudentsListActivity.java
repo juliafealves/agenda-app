@@ -1,5 +1,6 @@
 package br.com.juliafealves.agenda.ui.activities;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -42,10 +43,7 @@ public class StudentsListActivity extends AppCompatActivity {
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.mi_remove) {
-            AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo)
-                    item.getMenuInfo();
-            Student student = adapter.getItem(menuInfo.position);
-            removeStudent(student);
+            confirmRemove(item);
         }
 
         return super.onContextItemSelected(item);
@@ -96,5 +94,20 @@ public class StudentsListActivity extends AppCompatActivity {
     private void removeStudent(Student student) {
         studentDAO.removeById(student.getId());
         adapter.remove(student);
+    }
+
+    private void confirmRemove(final MenuItem item) {
+        new AlertDialog
+                .Builder(this)
+                .setTitle("Removing student...")
+                .setMessage("Are you sure you want to remove the student?")
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    AdapterView.AdapterContextMenuInfo menuInfo =
+                            (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+                    Student student = adapter.getItem(menuInfo.position);
+                    removeStudent(student);
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
 }

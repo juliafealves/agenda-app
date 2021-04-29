@@ -4,6 +4,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/mi_save"
         android:icon="@drawable/ic_action_save"
-         android:title="Save Student"
+         android:title="@string/save_student"
         app:showAsAction="always"/>
 </menu>

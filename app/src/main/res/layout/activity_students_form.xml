@@ -12,20 +12,23 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:inputType="textCapWords"
-            android:hint="Name"/>
+            android:hint="@string/name"
+            android:importantForAutofill="no" />
         <EditText
             android:id="@+id/edt_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:inputType="phone"
-            android:hint="Phone"/>
+            android:hint="@string/phone"
+            android:importantForAutofill="no" />
         <EditText
             android:id="@+id/edt_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:inputType="textEmailAddress"
-            android:hint="E-mail"/>
+            android:hint="@string/email"
+            android:importantForAutofill="no" />
     </LinearLayout>
 </ScrollView>
