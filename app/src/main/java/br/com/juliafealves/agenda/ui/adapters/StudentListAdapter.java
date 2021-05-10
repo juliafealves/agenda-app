@@ -13,11 +13,11 @@ import java.util.List;
 import br.com.juliafealves.agenda.R;
 import br.com.juliafealves.agenda.models.Student;
 
-public class StudentsListAdapter extends BaseAdapter {
+public class StudentListAdapter extends BaseAdapter {
     private final List<Student> students = new ArrayList<>();
     private final Context context;
 
-    public StudentsListAdapter(Context context) {
+    public StudentListAdapter(Context context) {
         this.context = context;
     }
 

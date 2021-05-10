@@ -10,8 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Agenda"
         android:name=".AgendaApplication">
-        <activity android:name=".ui.activities.StudentsFormActivity" />
-        <activity android:name=".ui.activities.StudentsListActivity">
+        <activity android:name=".ui.activities.StudentFormActivity" />
+        <activity android:name=".ui.activities.StudentListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

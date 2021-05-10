@@ -11,21 +11,12 @@ public class StudentDAO {
     private final static List<Student> students = new ArrayList<>();
     private static int countId = 1;
 
-    /**
-     * Add a student.
-     * @param student
-     */
     public void save(Student student) {
         student.setId(countId);
         students.add(student);
         incrementId();
     }
 
-    /**
-     * Edit a student.
-     *
-     * @param student
-     */
     public void edit(Student student) {
         Student studentFound = findById(student.getId());
 
@@ -35,19 +26,10 @@ public class StudentDAO {
         }
     }
 
-    /**
-     * List all students
-     * @return
-     */
     public List<Student> findAll() {
         return new ArrayList<>(students);
     }
 
-    /**
-     * Find student by id.
-     * @param id
-     * @return
-     */
     @Nullable
     public Student findById(int id) {
         for (Student student : students) {
@@ -59,17 +41,10 @@ public class StudentDAO {
         return null;
     }
 
-    /**
-     * Increment plus 1 in id.
-     */
     private void incrementId() {
         countId++;
     }
 
-    /**
-     * Remove a student by id.
-     * @param id
-     */
     public void removeById(int id) {
         Student student = findById(id);
 

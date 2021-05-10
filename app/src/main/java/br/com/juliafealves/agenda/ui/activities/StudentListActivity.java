@@ -1,6 +1,5 @@
 package br.com.juliafealves.agenda.ui.activities;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -16,14 +15,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import br.com.juliafealves.agenda.R;
-import br.com.juliafealves.agenda.daos.StudentDAO;
 import br.com.juliafealves.agenda.models.Student;
-import br.com.juliafealves.agenda.ui.adapters.StudentsListAdapter;
 
-public class StudentsListActivity extends AppCompatActivity {
+public class StudentListActivity extends AppCompatActivity {
     private static final String TITLE = "Students List";
-    private final StudentDAO studentDAO = new StudentDAO();
-    private StudentsListAdapter adapter;
+    private final StudentListView studentListView = new StudentListView(this);
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,7 +39,7 @@ public class StudentsListActivity extends AppCompatActivity {
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.mi_remove) {
-            confirmRemove(item);
+            studentListView.confirmRemove(item);
         }
 
         return super.onContextItemSelected(item);
@@ -52,11 +48,7 @@ public class StudentsListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        updateList();
-    }
-
-    private void updateList() {
-        adapter.refresh(studentDAO.findAll());
+        studentListView.refreshList();
     }
 
     private void configureButtonAdd() {
@@ -66,14 +58,9 @@ public class StudentsListActivity extends AppCompatActivity {
 
     private void configureStudentsList() {
         ListView ltvStudents = findViewById(R.id.ltv_students);
-        configureStudentListAdapter(ltvStudents);
+        studentListView.configureStudentListAdapter(ltvStudents);
         configureStudentListItemClickListener(ltvStudents);
         registerForContextMenu(ltvStudents);
-    }
-
-    private void configureStudentListAdapter(ListView listView) {
-        adapter = new StudentsListAdapter(this);
-        listView.setAdapter(adapter);
     }
 
     private void configureStudentListItemClickListener(ListView listView) {
@@ -82,32 +69,12 @@ public class StudentsListActivity extends AppCompatActivity {
     }
 
     private void openAddForm() {
-        startActivity(new Intent(StudentsListActivity.this, StudentsFormActivity.class));
+        startActivity(new Intent(StudentListActivity.this, StudentFormActivity.class));
     }
 
     private void openEditForm(Student student) {
-        Intent intent = new Intent(StudentsListActivity.this, StudentsFormActivity.class);
+        Intent intent = new Intent(StudentListActivity.this, StudentFormActivity.class);
         intent.putExtra(ConstantsActivities.KEY_STUDENT, student);
         startActivity(intent);
-    }
-
-    private void removeStudent(Student student) {
-        studentDAO.removeById(student.getId());
-        adapter.remove(student);
-    }
-
-    private void confirmRemove(final MenuItem item) {
-        new AlertDialog
-                .Builder(this)
-                .setTitle("Removing student...")
-                .setMessage("Are you sure you want to remove the student?")
-                .setPositiveButton("Yes", (dialog, which) -> {
-                    AdapterView.AdapterContextMenuInfo menuInfo =
-                            (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-                    Student student = adapter.getItem(menuInfo.position);
-                    removeStudent(student);
-                })
-                .setNegativeButton("No", null)
-                .show();
     }
 }

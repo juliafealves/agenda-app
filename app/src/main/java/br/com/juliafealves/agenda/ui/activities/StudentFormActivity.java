@@ -12,7 +12,7 @@ import br.com.juliafealves.agenda.R;
 import br.com.juliafealves.agenda.daos.StudentDAO;
 import br.com.juliafealves.agenda.models.Student;
 
-public class StudentsFormActivity extends AppCompatActivity {
+public class StudentFormActivity extends AppCompatActivity {
     private static final String TITLE_NEW = "New Student";
     private static final String TITLE_EDIT = "Edit Student";
 
