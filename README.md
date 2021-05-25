@@ -11,7 +11,7 @@ Application for managing student contacts, containing **name**, **phone** and **
 
 ## Demo
 
-<img src="agenda_app-demo.gif" alt="Demo Agendgena" style="height: 700px;">
+<img src="agenda_app-demo.gif" alt="Demo Agendgena" height="700">
 ---
 
 ## Funcionalidades
