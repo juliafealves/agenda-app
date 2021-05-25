@@ -9,6 +9,9 @@ Application for managing student contacts, containing **name**, **phone** and **
 > 
 > Application developed through training of Android Developer Training from Alura.
 
+## Demo
+
+<img src="agenda_app-demo.gif" alt="Demo Agendgena" style="height: 700px;">
 ---
 
 ## Funcionalidades
