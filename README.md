@@ -4,6 +4,7 @@ Aplicativo para gerenciamento de contatos de estudantes, contendo as informaçõ
 
 Application for managing student contacts, containing **name**, **phone** and **email** information.
 
+
 > Aplicativo desenvolvido através do treinamento da Formação Desenvolvedor Android da Alura.
 > 
 > Application developed through training of Android Developer Training from Alura.
