@@ -20,3 +20,4 @@ Aplicativo para gerenciamento de contatos de estudantes, contendo as informaçõ
 - Interação com formulário e `autofill`;
 - Uso do `AlertDialog`;
 - Criação de uma `view Adapter` personalizada;
+- Banco de dados em memória.
